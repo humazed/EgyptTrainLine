@@ -19,12 +19,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
 
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
@@ -32,6 +37,8 @@ dependencies {
     compile 'com.pushtorefresh.storio:content-resolver:1.10.0'
     compile 'com.pushtorefresh.storio:sqlite-annotations:1.10.0'
     apt 'com.pushtorefresh.storio:sqlite-annotations-processor:1.10.0'
+    compile 'com.pushtorefresh.storio:content-resolver-annotations:1.10.0'
+    apt 'com.pushtorefresh.storio:content-resolver-annotations-processor:1.10.0'
 
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.9'
@@ -40,4 +47,8 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     compile 'com.facebook.stetho:stetho:1.3.1'
+
+    //layout
+    compile 'com.balysv:material-ripple:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 }
