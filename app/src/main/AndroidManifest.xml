@@ -22,6 +22,9 @@
             android:enabled="true"
             android:exported="false">
         </provider>
+
+        <activity android:name=".ui.TrainsActivity">
+        </activity>
     </application>
 
 </manifest>

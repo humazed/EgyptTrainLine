@@ -13,10 +13,11 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
  * User: huma
  * Date: 20-Sep-16
  */
-@StorIOSQLiteType(table = StationTable.TABLE_NAME)
-@StorIOContentResolverType(uri = StationTable.CONTENT_URI_STRING)
-public class StationTable implements BaseColumns {
-    public static final String CONTENT_URI_STRING = TrainContract.BASE_CONTENT_URI_STRING + "/" + TrainContract.PATH_STATION;
+@StorIOSQLiteType(table = Station.TABLE_NAME)
+@StorIOContentResolverType(uri = Station.CONTENT_URI_STRING)
+public class Station implements BaseColumns {
+    public static final String PATH = "station";
+    public static final String CONTENT_URI_STRING = TrainContract.BASE_CONTENT_URI_STRING + "/" + PATH;
     public static final Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
 
     public static final String TABLE_NAME = "Station";
@@ -34,12 +35,12 @@ public class StationTable implements BaseColumns {
     @StorIOContentResolverColumn(name = COLUMN_STATION_ARABIC)
     public String StationArabic;
 
-    public StationTable() {
+    public Station() {
     }
 
     @Override
     public String toString() {
-        return "StationTable{" +
+        return "Station{" +
                 "ID=" + ID +
                 ", StationName='" + StationName + '\'' +
                 ", StationArabic='" + StationArabic + '\'' +

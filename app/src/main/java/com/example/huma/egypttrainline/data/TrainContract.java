@@ -11,7 +11,4 @@ public class TrainContract {
 
     public static final String BASE_CONTENT_URI_STRING = "content://" + CONTENT_AUTHORITY;
     public static final Uri BASE_CONTENT_URI = Uri.parse(BASE_CONTENT_URI_STRING);
-
-
-    public static final String PATH_STATION = "station";
 }

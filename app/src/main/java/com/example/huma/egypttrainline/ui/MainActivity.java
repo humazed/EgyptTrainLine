@@ -10,13 +10,17 @@ import android.widget.ImageView;
 
 import com.example.huma.egypttrainline.R;
 import com.example.huma.egypttrainline.data.DbHelper;
-import com.example.huma.egypttrainline.data.tables.StationTable;
+import com.example.huma.egypttrainline.data.tables.Station;
 import com.example.huma.egypttrainline.data.tables.StationTableSQLiteTypeMapping;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,21 +45,21 @@ public class MainActivity extends AppCompatActivity {
 
         StorIOSQLite storIOSQLite = DefaultStorIOSQLite.builder()
                 .sqliteOpenHelper(new DbHelper(this))
-                .addTypeMapping(StationTable.class, new StationTableSQLiteTypeMapping())
+                .addTypeMapping(Station.class, new StationTableSQLiteTypeMapping())
                 .build();
 
         storIOSQLite
                 .get()
-                .listOfObjects(StationTable.class)
+                .listOfObjects(Station.class)
                 .withQuery(Query.builder()
-                        .table(StationTable.TABLE_NAME)
+                        .table(Station.TABLE_NAME)
                         .build())
                 .prepare()
                 .asRxObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(stations -> {
                             ArrayList<String> strings = new ArrayList<>();
-                            for (StationTable station : stations) strings.add(station.StationName);
+                            for (Station station : stations) strings.add(station.StationName);
 
                             mFromAutocomplete.setAdapter(new ArrayAdapter<>(this,
                                     android.R.layout.simple_dropdown_item_1line, strings));
@@ -70,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.go_button)
     public void onClick() {
         Log.d(TAG, "onClick " + mFromAutocomplete.getText() + " ? " + mToAutocomplete.getText());
+        SimpleDateFormat inFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+        SimpleDateFormat outFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+        try {
+            Date date = inFormat.parse("1899/12/30 13:30:00");
+            Log.d(TAG, "onClick " + outFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
 

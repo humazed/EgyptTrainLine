@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.example.huma.egypttrainline.data.tables.StationTable;
+import com.example.huma.egypttrainline.data.tables.Station;
 
 public class TrainProvider extends ContentProvider {
     private SQLiteDatabase db;
@@ -25,7 +25,7 @@ public class TrainProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         Cursor retCursor = db.query(
-                StationTable.TABLE_NAME,
+                Station.TABLE_NAME,
                 projection,
                 selection,
                 selectionArgs,
