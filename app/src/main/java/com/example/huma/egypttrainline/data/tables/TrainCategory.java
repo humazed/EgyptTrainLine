@@ -1,6 +1,8 @@
 package com.example.huma.egypttrainline.data.tables;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 
 import com.example.huma.egypttrainline.data.TrainContract;
@@ -15,7 +17,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
  */
 @StorIOSQLiteType(table = TrainCategory.TABLE_NAME)
 @StorIOContentResolverType(uri = TrainCategory.CONTENT_URI_STRING)
-public class TrainCategory implements BaseColumns {
+public class TrainCategory implements BaseColumns,Parcelable {
     public static final String PATH = "traincategory";
     public static final String CONTENT_URI_STRING = TrainContract.BASE_CONTENT_URI_STRING + "/" + PATH;
     public static final Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
@@ -35,7 +37,6 @@ public class TrainCategory implements BaseColumns {
     @StorIOSQLiteColumn(name = COLUMN_CATEGORY_ARABIC)
     @StorIOContentResolverColumn(name = COLUMN_CATEGORY_ARABIC)
     String CategoryArabic;
-
     @Override
     public String toString() {
         return "TrainCategory{" +
@@ -43,5 +44,52 @@ public class TrainCategory implements BaseColumns {
                 ", Category='" + Category + '\'' +
                 ", CategoryArabic='" + CategoryArabic + '\'' +
                 '}';
+    }
+
+    public TrainCategory() {
+    }
+
+    protected TrainCategory(Parcel in) {
+        ID = in.readInt();
+        Category = in.readString();
+        CategoryArabic = in.readString();
+    }
+
+    public static final Creator<TrainCategory> CREATOR = new Creator<TrainCategory>() {
+        @Override
+        public TrainCategory createFromParcel(Parcel in) {
+            return new TrainCategory(in);
+        }
+
+        @Override
+        public TrainCategory[] newArray(int size) {
+            return new TrainCategory[size];
+        }
+    };
+
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(Category);
+        dest.writeString(CategoryArabic);
+    }
+
+    public String getCategoryArabic() {
+        return CategoryArabic;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getCategory() {
+        return Category;
     }
 }

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/row_journey_planner_background"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/row_journey_planner_background"
+            android:baselineAligned="false"
+            android:minHeight="150dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/origin_station_layout"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/origin_station_time"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="12:30"/>
+
+                <TextView
+                    android:id="@+id/origin_station_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="13sp"
+                    tools:text="Cairo"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.0">
+
+                <TextView
+                    android:id="@+id/journey_changes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:drawableLeft="@drawable/ic_swap_horiz"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_swap_horiz"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="13sp"
+                    tools:text="3 changes"/>
+
+
+                <android.support.percent.PercentFrameLayout
+                    android:id="@+id/journey_planner_changes_bar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:alpha="1.0">
+
+                    <ImageView
+                        android:id="@+id/journey_planner_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:alpha="1.0"
+                        android:src="@drawable/journey_planner_bar"
+                        tools:ignore="ContentDescription"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:src="@drawable/journey_planner_circle_end"
+                        android:visibility="visible"
+                        tools:ignore="ContentDescription"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:src="@drawable/journey_planner_circle_end"
+                        android:visibility="visible"
+                        tools:ignore="ContentDescription"/>
+                </android.support.percent.PercentFrameLayout>
+
+                <LinearLayout
+                    android:layout_width="10dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"/>
+
+                    <ImageView
+                        android:id="@+id/journey_planner_bar_vertical_layout"
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:src="@drawable/journey_planner_bar"
+                        android:visibility="invisible"
+                        tools:ignore="ContentDescription"/>
+                </LinearLayout>
+
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:src="@drawable/journey_planner_circle_end"-->
+                <!--tools:ignore="ContentDescription"/>-->
+
+                <TextView
+                    android:id="@+id/journey_leg_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginStart="23dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/journey_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:drawableLeft="@drawable/ic_timelapse"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_timelapse"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="13sp"
+                    tools:text="4 hrs 36 mins"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/dest_station_layout"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dest_station_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.0"
+                    android:gravity="bottom"
+                    android:padding="5dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="12:30"/>
+
+                <TextView
+                    android:id="@+id/dest_station_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/textGrey"
+                    android:textSize="13sp"
+                    tools:text="Alex"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/journey_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center|end"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:textColor="@color/textGrey"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="25 EG"/>
+    </FrameLayout>
+
+    <View
+        android:id="@+id/journey_planner_result_row_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+</LinearLayout>

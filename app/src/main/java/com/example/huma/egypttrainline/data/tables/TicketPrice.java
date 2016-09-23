@@ -1,6 +1,8 @@
 package com.example.huma.egypttrainline.data.tables;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 
 import com.example.huma.egypttrainline.data.TrainContract;
@@ -15,7 +17,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
  */
 @StorIOSQLiteType(table = TicketPrice.TABLE_NAME)
 @StorIOContentResolverType(uri = TicketPrice.CONTENT_URI_STRING)
-public class TicketPrice implements BaseColumns {
+public class TicketPrice implements BaseColumns, Parcelable {
     public static final String PATH = "ticketprice";
     public static final String CONTENT_URI_STRING = TrainContract.BASE_CONTENT_URI_STRING + "/" + PATH;
     public static final Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
@@ -67,6 +69,82 @@ public class TicketPrice implements BaseColumns {
                 ", VIPFirst='" + VIPFirst + '\'' +
                 ", VIPSecond='" + VIPSecond + '\'' +
                 '}';
+    }
+
+    public TicketPrice() {
+    }
+
+    protected TicketPrice(Parcel in) {
+        ID = in.readInt();
+        FK_StationID = in.readString();
+        FirstNew = in.readString();
+        ChildFirstNew = in.readString();
+        SecondNew = in.readString();
+        ChildSecondNew = in.readString();
+        VIPFirst = in.readString();
+        VIPSecond = in.readString();
+    }
+
+    public static final Creator<TicketPrice> CREATOR = new Creator<TicketPrice>() {
+        @Override
+        public TicketPrice createFromParcel(Parcel in) {
+            return new TicketPrice(in);
+        }
+
+        @Override
+        public TicketPrice[] newArray(int size) {
+            return new TicketPrice[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(FK_StationID);
+        dest.writeString(FirstNew);
+        dest.writeString(ChildFirstNew);
+        dest.writeString(SecondNew);
+        dest.writeString(ChildSecondNew);
+        dest.writeString(VIPFirst);
+        dest.writeString(VIPSecond);
+    }
+
+    public String getVIPSecond() {
+        return VIPSecond;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getFK_StationID() {
+        return FK_StationID;
+    }
+
+    public String getFirstNew() {
+        return FirstNew;
+    }
+
+    public String getChildFirstNew() {
+        return ChildFirstNew;
+    }
+
+    public String getSecondNew() {
+        return SecondNew;
+    }
+
+    public String getChildSecondNew() {
+        return ChildSecondNew;
+    }
+
+    public String getVIPFirst() {
+        return VIPFirst;
     }
 }
 

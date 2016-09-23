@@ -8,6 +8,8 @@
     <string name="go">Go</string>
     <string name="station_from_hint">Departure station</string>
     <string name="station_to_hint">Arrival station</string>
+
+    <string name="choose_station_msg">Please choose station</string>
     <!--MainActivity screen end-->
 
 

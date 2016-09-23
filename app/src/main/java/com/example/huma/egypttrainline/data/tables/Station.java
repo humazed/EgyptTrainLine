@@ -1,6 +1,8 @@
 package com.example.huma.egypttrainline.data.tables;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 
 import com.example.huma.egypttrainline.data.TrainContract;
@@ -15,7 +17,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
  */
 @StorIOSQLiteType(table = Station.TABLE_NAME)
 @StorIOContentResolverType(uri = Station.CONTENT_URI_STRING)
-public class Station implements BaseColumns {
+public class Station implements BaseColumns, Parcelable {
     public static final String PATH = "station";
     public static final String CONTENT_URI_STRING = TrainContract.BASE_CONTENT_URI_STRING + "/" + PATH;
     public static final Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
@@ -35,9 +37,6 @@ public class Station implements BaseColumns {
     @StorIOContentResolverColumn(name = COLUMN_STATION_ARABIC)
     public String StationArabic;
 
-    public Station() {
-    }
-
     @Override
     public String toString() {
         return "Station{" +
@@ -45,5 +44,52 @@ public class Station implements BaseColumns {
                 ", StationName='" + StationName + '\'' +
                 ", StationArabic='" + StationArabic + '\'' +
                 '}';
+    }
+
+    public Station() {
+    }
+
+    //Parcelable impl
+    protected Station(Parcel in) {
+        ID = in.readInt();
+        StationName = in.readString();
+        StationArabic = in.readString();
+    }
+
+    public static final Creator<Station> CREATOR = new Creator<Station>() {
+        @Override
+        public Station createFromParcel(Parcel in) {
+            return new Station(in);
+        }
+
+        @Override
+        public Station[] newArray(int size) {
+            return new Station[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(StationName);
+        dest.writeString(StationArabic);
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getStationName() {
+        return StationName;
+    }
+
+    public String getStationArabic() {
+        return StationArabic;
     }
 }

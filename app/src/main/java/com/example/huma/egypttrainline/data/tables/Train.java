@@ -1,6 +1,8 @@
 package com.example.huma.egypttrainline.data.tables;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 
 import com.example.huma.egypttrainline.data.TrainContract;
@@ -15,7 +17,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
  */
 @StorIOSQLiteType(table = Train.TABLE_NAME)
 @StorIOContentResolverType(uri = Train.CONTENT_URI_STRING)
-public class Train implements BaseColumns {
+public class Train implements BaseColumns, Parcelable {
     public static final String PATH = "train";
     public static final String CONTENT_URI_STRING = TrainContract.BASE_CONTENT_URI_STRING + "/" + PATH;
     public static final Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
@@ -45,4 +47,71 @@ public class Train implements BaseColumns {
     @StorIOContentResolverColumn(name = COLUMN_FK_WORKING_STATE)
     String FK_WorkingState;
 
+    @Override
+    public String toString() {
+        return "Train{" +
+                "ID=" + ID +
+                ", TrainNumber='" + TrainNumber + '\'' +
+                ", FK_TrolleyTypeID='" + FK_TrolleyTypeID + '\'' +
+                ", FK_TrainLineID='" + FK_TrainLineID + '\'' +
+                ", FK_WorkingState='" + FK_WorkingState + '\'' +
+                '}';
+    }
+
+    public Train() {
+    }
+
+    protected Train(Parcel in) {
+        ID = in.readInt();
+        TrainNumber = in.readString();
+        FK_TrolleyTypeID = in.readString();
+        FK_TrainLineID = in.readString();
+        FK_WorkingState = in.readString();
+    }
+
+    public static final Creator<Train> CREATOR = new Creator<Train>() {
+        @Override
+        public Train createFromParcel(Parcel in) {
+            return new Train(in);
+        }
+
+        @Override
+        public Train[] newArray(int size) {
+            return new Train[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(TrainNumber);
+        dest.writeString(FK_TrolleyTypeID);
+        dest.writeString(FK_TrainLineID);
+        dest.writeString(FK_WorkingState);
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getTrainNumber() {
+        return TrainNumber;
+    }
+
+    public String getFK_TrolleyTypeID() {
+        return FK_TrolleyTypeID;
+    }
+
+    public String getFK_TrainLineID() {
+        return FK_TrainLineID;
+    }
+
+    public String getFK_WorkingState() {
+        return FK_WorkingState;
+    }
 }

@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#607D8B</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+
+    <color name="colorLateOrange">#ffff6f00</color>
+    <color name="colorLateRed">#ffd50000</color>
+    <color name="colorPrimaryCommuter">#ff0b5177</color>
+    <color name="colorPrimaryDarkCommuter">#ff094464</color>
+    <color name="colorPrimaryDarkIntercity">#ffd6a824</color>
+    <color name="colorPrimaryIntercity">#ffffc92d</color>
+    <color name="row_journey_planner_background">#fff5f5f5</color>
+    <color name="row_journey_planner_background_expanded">#fff4f3f3</color>
+    <color name="searchview_grey">#ffdcdcdc</color>
+    <color name="tab_inactive_colour">#fff5f5f5</color>
+    <color name="textGrey">#ff707070</color>
+    <color name="text_black">#ff000000</color>
+    <color name="text_light">#ffcccccc</color>
+    <color name="text_normal">#ff888888</color>
+    <color name="text_white">#ffffffff</color>
+    <color name="transparent">#00ffffff</color>
 </resources>
