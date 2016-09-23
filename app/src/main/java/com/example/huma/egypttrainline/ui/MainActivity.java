@@ -3,6 +3,7 @@ package com.example.huma.egypttrainline.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,13 +22,7 @@ import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.pushtorefresh.storio.sqlite.queries.RawQuery;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,18 +49,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        SimpleDateFormat inFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
-        try {
-            Date d1 = inFormat.parse("1899/12/30 04:20:00");
-            Date d2 = inFormat.parse("1899/12/30 05:40:00");
-            Map<TimeUnit, Long> timeMap = Travel.computeDiff(d1, d2);
-            Log.d(TAG, "onCreate timeMap: " + timeMap.get(TimeUnit.HOURS));
-            Log.d(TAG, "onCreate timeMap: " + timeMap.get(TimeUnit.MINUTES));
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         mStorIOSQLite = DefaultStorIOSQLite.builder()
                 .sqliteOpenHelper(new DbHelper(this))
@@ -133,6 +116,13 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
         Log.d(TAG, "onClick " + mFromAutocomplete.getText() + " ? " + mToAutocomplete.getText());
+    }
+
+    @OnClick(R.id.toggle_stations)
+    public void toggle() {
+        Editable tmp = mFromAutocomplete.getText();
+        mFromAutocomplete.setText(mToAutocomplete.getText());
+        mToAutocomplete.setText(tmp);
     }
 }
 
