@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huma.egypttrainline.R;
+import com.example.huma.egypttrainline.data.custom_tables.reslut.Result;
 import com.example.huma.egypttrainline.data.tables.Travel;
 
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ import butterknife.ButterKnife;
 public class TrainsAdapter extends RecyclerView.Adapter<TrainsAdapter.TrainVH> {
     private static final String TAG = TrainsAdapter.class.getSimpleName();
 
-    private final ArrayList<Travel> mTravels;
+    private final ArrayList<Result> mResults;
     private final String mFromStation;
     private final String mToStation;
 
-    public TrainsAdapter(ArrayList<Travel> travels, String fromStation, String toStation) {
-        mTravels = travels;
+    public TrainsAdapter(ArrayList<Result> results, String fromStation, String toStation) {
+        mResults = results;
         mFromStation = fromStation;
         mToStation = toStation;
     }
@@ -48,7 +49,7 @@ public class TrainsAdapter extends RecyclerView.Adapter<TrainsAdapter.TrainVH> {
 
     @Override
     public int getItemCount() {
-        return mTravels.size();
+        return mResults.size();
     }
 
     class TrainVH extends RecyclerView.ViewHolder {
@@ -71,12 +72,12 @@ public class TrainsAdapter extends RecyclerView.Adapter<TrainsAdapter.TrainVH> {
         }
 
         void bind(int position) {
-            Travel travel = mTravels.get(position);
+            Result result = mResults.get(position);
             mOriginStationName.setText(mFromStation);
-            mOriginStationTime.setText(Travel.formatDate(travel.getStartTime()));
+            mOriginStationTime.setText(Travel.formatDate(result.getStartTime()));
             mDestStationName.setText(mToStation);
-            mDestStationTime.setText(Travel.formatDate(travel.getArriveTime()));
-            mJourneyDuration.setText(travel.getTravelDuration());
+            mDestStationTime.setText(Travel.formatDate(result.getArriveTime()));
+            mJourneyDuration.setText(result.getTravelDuration());
 
         }
     }

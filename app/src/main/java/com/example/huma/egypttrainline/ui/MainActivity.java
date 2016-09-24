@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.huma.egypttrainline.R;
 import com.example.huma.egypttrainline.data.DbHelper;
+import com.example.huma.egypttrainline.data.custom_tables.reslut.Result;
 import com.example.huma.egypttrainline.data.tables.Station;
 import com.example.huma.egypttrainline.data.tables.StationSQLiteTypeMapping;
 import com.example.huma.egypttrainline.data.tables.Travel;
@@ -32,8 +33,8 @@ import rx.android.schedulers.AndroidSchedulers;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String KEY_RESULTS = "results";
     public static final String KEY_TO_STATION = "toStation";
-    public static final String KEY_TRAVELS = "travels";
     public static final String KEY_FROM_STATION = "fromStation";
 
     @BindView(R.id.from_autocomplete) AutoCompleteTextView mFromAutocomplete;
@@ -54,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 .sqliteOpenHelper(new DbHelper(this))
                 .addTypeMapping(Station.class, new StationSQLiteTypeMapping())
                 .addTypeMapping(Travel.class, new TravelSQLiteTypeMapping())
+                .addTypeMapping(Result.class, Result.MAPPER)
                 .build();
+
 
         mStorIOSQLite
                 .get()
@@ -90,30 +93,47 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d(TAG, "onClick " + "fromID: " + fromStationId);
             Log.d(TAG, "onClick " + "toID: " + toStationId);
-
             mStorIOSQLite.get()
-                    .listOfObjects(Travel.class)
+                    .listOfObjects(Result.class)
                     .withQuery(RawQuery.builder()
-                            .query("SELECT" +
-                                    " t.* " +
-                                    "FROM Travel AS t" +
-                                    " INNER JOIN Station AS s1 ON t.FK_StartStationID = s1._id" +
-                                    " INNER JOIN Station AS s2 ON t.FK_ArriveStationID = s2._id" +
-                                    " WHERE t.FK_StartStationID = ? AND t.FK_ArriveStationID = ?;")
-                            .args(fromStationId, toStationId)
+                            .query(Result.RESULT_QUERY)
+                            .args(3, 1)
                             .build())
                     .prepare()
                     .asRxObservable()
-                    .subscribe(travels -> {
+                    .subscribe(results -> {
                         Intent intent = new Intent(MainActivity.this, TrainsActivity.class);
-                        intent.putParcelableArrayListExtra(KEY_TRAVELS, new ArrayList<>(travels));
+                        intent.putParcelableArrayListExtra(KEY_RESULTS, new ArrayList<>(results));
                         intent.putExtra(KEY_FROM_STATION, mFromAutocomplete.getText().toString());
                         intent.putExtra(KEY_TO_STATION, mToAutocomplete.getText().toString());
                         startActivity(intent);
-                        Log.d(TAG, "onClick " + travels);
-                    }, throwable -> {
-                        Log.e(TAG, "onClick: ", throwable);
-                    });
+
+                        Log.d(TAG, "onCreate resultsSize: " + results.size() + "\n" + results);
+                    }, throwable -> Log.e(TAG, "onCreate: ", throwable));
+
+//            mStorIOSQLite.get()
+//                    .listOfObjects(Travel.class)
+//                    .withQuery(RawQuery.builder()
+//                            .query("SELECT" +
+//                                    " t.* " +
+//                                    "FROM Travel AS t" +
+//                                    " INNER JOIN Station AS s1 ON t.FK_StartStationID = s1._id" +
+//                                    " INNER JOIN Station AS s2 ON t.FK_ArriveStationID = s2._id" +
+//                                    " WHERE t.FK_StartStationID = ? AND t.FK_ArriveStationID = ?;")
+//                            .args(fromStationId, toStationId)
+//                            .build())
+//                    .prepare()
+//                    .asRxObservable()
+//                    .subscribe(travels -> {
+//                        Intent intent = new Intent(MainActivity.this, TrainsActivity.class);
+//                        intent.putParcelableArrayListExtra(KEY_RESULTS, new ArrayList<>(travels));
+//                        intent.putExtra(KEY_FROM_STATION, mFromAutocomplete.getText().toString());
+//                        intent.putExtra(KEY_TO_STATION, mToAutocomplete.getText().toString());
+//                        startActivity(intent);
+//                        Log.d(TAG, "onClick " + travels);
+//                    }, throwable -> {
+//                        Log.e(TAG, "onClick: ", throwable);
+//                    });
         }
         Log.d(TAG, "onClick " + mFromAutocomplete.getText() + " ? " + mToAutocomplete.getText());
     }

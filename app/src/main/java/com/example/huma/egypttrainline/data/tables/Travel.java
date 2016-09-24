@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.provider.BaseColumns;
 
 import com.example.huma.egypttrainline.data.TrainContract;
+import com.example.huma.egypttrainline.util.TimeUtils;
 import com.pushtorefresh.storio.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio.contentresolver.annotations.StorIOContentResolverType;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
@@ -13,12 +14,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.EnumSet;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -71,7 +67,7 @@ public class Travel implements BaseColumns, Parcelable {
         try {
             Date d1 = format.parse(StartTime);
             Date d2 = format.parse(ArriveTime);
-            Map<TimeUnit, Long> timeMap = Travel.computeDiff(d1, d2);
+            Map<TimeUnit, Long> timeMap = TimeUtils.computeDiff(d1, d2);
             Long hDiff = timeMap.get(TimeUnit.HOURS);
             Long mDiff = timeMap.get(TimeUnit.MINUTES);
             if (hDiff < 0) hDiff += 23;
@@ -84,20 +80,6 @@ public class Travel implements BaseColumns, Parcelable {
         return "";
     }
 
-    public static Map<TimeUnit, Long> computeDiff(Date date1, Date date2) {
-        long diffInMillies = date2.getTime() - date1.getTime();
-        List<TimeUnit> units = new ArrayList<>(EnumSet.allOf(TimeUnit.class));
-        Collections.reverse(units);
-        Map<TimeUnit, Long> result = new LinkedHashMap<>();
-        long milliesRest = diffInMillies;
-        for (TimeUnit unit : units) {
-            long diff = unit.convert(milliesRest, TimeUnit.MILLISECONDS);
-            long diffInMilliesForUnit = unit.toMillis(diff);
-            milliesRest = milliesRest - diffInMilliesForUnit;
-            result.put(unit, diff);
-        }
-        return result;
-    }
 
     public static String formatDate(String date) {
         SimpleDateFormat inFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);

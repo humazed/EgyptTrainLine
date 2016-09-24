@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.huma.egypttrainline.R;
 import com.example.huma.egypttrainline.adapters.TrainsAdapter;
-import com.example.huma.egypttrainline.data.tables.Travel;
+import com.example.huma.egypttrainline.data.custom_tables.reslut.Result;
 
 import java.util.ArrayList;
 
@@ -26,11 +26,11 @@ public class TrainsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        ArrayList<Travel> travels = intent.getParcelableArrayListExtra(MainActivity.KEY_TRAVELS);
+        ArrayList<Result> results = intent.getParcelableArrayListExtra(MainActivity.KEY_RESULTS);
         String fromStation = intent.getStringExtra(MainActivity.KEY_FROM_STATION);
         String toStation = intent.getStringExtra(MainActivity.KEY_TO_STATION);
 
-        mTrainsRecyclerView.setAdapter(new TrainsAdapter(travels, fromStation, toStation));
+        mTrainsRecyclerView.setAdapter(new TrainsAdapter(results, fromStation, toStation));
         mTrainsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
